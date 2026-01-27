@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account | Luxury Lune</title>
+    <meta name="description" content="Sign in or register for a Luxury Lune account.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page specific overrides if needed */
+        body {
+            background-color: #F8F8F8;
+            /* Slightly different bg for account page to make white card pop */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-left">
+            <a href="collections.html" class="nav-link">Collections</a>
+            <a href="maison.html" class="nav-link">Maison</a>
+        </nav>
+
+        <div class="logo">
+            <a href="index.html">LUXURY LUNE</a>
+        </div>
+
+        <nav class="nav-right">
+            <div class="nav-item-dropdown">
+                <a href="account.html" class="nav-link active">Account</a>
+                <div class="dropdown-content">
+                    <a href="account.html?mode=login">Sign In</a>
+                    <a href="account.html?mode=register">Create Account</a>
+                </div>
+            </div>
+            <a href="cart.html" class="nav-link">Bag (0)</a>
+        </nav>
+        </nav>
+
+        <div class="mobile-menu-overlay"></div>
+        <nav class="mobile-nav">
+            <span class="close-mobile-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="collections.html" class="mobile-link">Collections</a>
+            <a href="maison.html" class="mobile-link">Maison</a>
+            <a href="cart.html" class="mobile-link">Bag</a>
+            <a href="account.html" class="mobile-link">Account</a>
+        </nav>
+    </header>
+
+    <main class="account-main">
+        <div class="account-container">
+            <div class="account-card glass-panel">
+                <div class="account-toggle">
+                    <button class="toggle-btn active" id="login-toggle">Sign In</button>
+                    <button class="toggle-btn" id="register-toggle">Register</button>
+                    <div class="toggle-slider"></div>
+                </div>
+
+                <div class="form-container">
+                    <!-- Login Form -->
+                    <form id="login-form" class="account-form active">
+                        <h2 class="form-title">Welcome Back</h2>
+                        <p class="form-subtitle">Enter your details to access your account.</p>
+
+                        <div class="input-group">
+                            <input type="email" id="login-email" placeholder=" " required>
+                            <label for="login-email">Email Address</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="login-password" placeholder=" " required>
+                            <label for="login-password">Password</label>
+                        </div>
+
+                        <div class="form-actions">
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="auth-btn">Sign In</button>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="register-form" class="account-form">
+                        <h2 class="form-title">Create Account</h2>
+                        <p class="form-subtitle">Join the Maison for exclusive access.</p>
+
+                        <div class="input-group">
+                            <input type="text" id="reg-name" placeholder=" " required>
+                            <label for="reg-name">Full Name</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="email" id="reg-email" placeholder=" " required>
+                            <label for="reg-email">Email Address</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="reg-password" placeholder=" " required>
+                            <label for="reg-password">Password</label>
+                        </div>
+
+                        <button type="submit" class="auth-btn dark">Create Account</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Decorative Elements behind Glass -->
+            <div class="deco-circle circle-1"></div>
+            <div class="deco-circle circle-2"></div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="maison.html">Maison</a>
+            <a href="#">Legal</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p class="copyright">&copy; 2026 Luxury Lune. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Inline script for toggle logic just for this page
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginBtn = document.getElementById('login-toggle');
+            const regBtn = document.getElementById('register-toggle');
+            const loginForm = document.getElementById('login-form');
+            const regForm = document.getElementById('register-form');
+            const slider = document.querySelector('.toggle-slider');
+
+            function switchTab(isLogin) {
+                if (isLogin) {
+                    slider.style.transform = 'translateX(0)';
+                    loginBtn.classList.add('active');
+                    regBtn.classList.remove('active');
+
+                    loginForm.classList.add('active');
+                    regForm.classList.remove('active');
+
+                    // Update URL without reloading
+                    const url = new URL(window.location);
+                    url.searchParams.set('mode', 'login');
+                    window.history.pushState({}, '', url);
+                } else {
+                    slider.style.transform = 'translateX(100%)';
+                    regBtn.classList.add('active');
+                    loginBtn.classList.remove('active');
+
+                    regForm.classList.add('active');
+                    loginForm.classList.remove('active');
+
+                    // Update URL without reloading
+                    const url = new URL(window.location);
+                    url.searchParams.set('mode', 'register');
+                    window.history.pushState({}, '', url);
+                }
+            }
+
+            loginBtn.addEventListener('click', () => switchTab(true));
+            regBtn.addEventListener('click', () => switchTab(false));
+
+            // Check URL for mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            if (mode === 'register') {
+                switchTab(false); // Switch to register automatically
+            }
+
+            // Form Submission Fake Handling
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const btn = form.querySelector('button');
+                    const originalText = btn.textContent;
+
+                    btn.textContent = 'Processing...';
+                    btn.disabled = true;
+
+                    setTimeout(() => {
+                        btn.textContent = 'Success';
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.disabled = false;
+                            alert('This is a demo. No account was actually created/accessed.');
+                        }, 1000);
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

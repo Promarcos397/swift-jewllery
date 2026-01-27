@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solitaire Diamond Ring | Luxury Lune</title>
+    <meta name="description" content="Shop the Solitaire Diamond Ring. Handcrafted in silver.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 2rem var(--spacing-container);
+            max-width: 1400px;
+            margin: 0 auto 6rem;
+            align-items: center;
+        }
+
+        .product-gallery {
+            background-color: #FAFAFA;
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-gallery img {
+            width: 80%;
+            height: auto;
+        }
+
+        .product-info-col {
+            padding: 2rem 0;
+        }
+
+        .pdp-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .pdp-price {
+            font-size: 1.5rem;
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+            font-family: var(--font-body);
+        }
+
+        .pdp-desc {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: var(--color-text-light);
+        }
+
+        .add-to-bag-btn {
+            background-color: var(--color-text);
+            color: #FFF;
+            border: none;
+            padding: 1rem 3rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-bag-btn:hover {
+            background-color: #333;
+        }
+
+        .product-details-list {
+            margin-top: 3rem;
+            border-top: 1px solid var(--color-border);
+            padding-top: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .pdp-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-left">
+            <a href="collections.html" class="nav-link">Collections</a>
+            <a href="maison.html" class="nav-link">Maison</a>
+        </nav>
+
+        <div class="logo">
+            <a href="index.html">LUXURY LUNE</a>
+        </div>
+
+        <nav class="nav-right">
+            <div class="nav-item-dropdown">
+                <a href="account.html" class="nav-link">Account</a>
+                <div class="dropdown-content">
+                    <a href="account.html?mode=login">Sign In</a>
+                    <a href="account.html?mode=register">Create Account</a>
+                </div>
+            </div>
+            <a href="cart.html" class="nav-link">Bag (0)</a>
+        </nav>
+        </nav>
+
+        <div class="mobile-menu-overlay"></div>
+        <nav class="mobile-nav">
+            <span class="close-mobile-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="collections.html" class="mobile-link">Collections</a>
+            <a href="maison.html" class="mobile-link">Maison</a>
+            <a href="cart.html" class="mobile-link">Bag</a>
+            <a href="account.html" class="mobile-link">Account</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="product-detail">
+            <div class="product-gallery">
+                <img src="assets/images/solitaire_ring.webp" alt="Solitaire Ring">
+            </div>
+
+            <div class="product-info-col">
+                <h1 class="pdp-title">Solitaire Diamond Ring</h1>
+                <p class="pdp-price">£2,450</p>
+
+                <p class="pdp-desc">
+                    A timeless symbol of elegance. This solitaire ring features a brilliant-cut diamond set in polished
+                    sterling silver. Designed to catch the light from every angle, it is the perfect statement piece for
+                    the modern romantic.
+                </p>
+
+                <button class="add-to-bag-btn">Add to Bag</button>
+
+                <div class="product-details-list">
+                    <div class="detail-item"><span>Material</span> <span>Sterling Silver (925)</span></div>
+                    <div class="detail-item"><span>Gemstone</span> <span>Lab-Grown Diamond</span></div>
+                    <div class="detail-item"><span>Carat</span> <span>1.5 ct</span></div>
+                    <div class="detail-item"><span>Care</span> <span>Polishing cloth included</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-collection">
+            <div class="collection-header">
+                <h2 class="collection-title" style="font-size: 1.8rem;">You May Also Like</h2>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <a href="product.html" style="display:block;">
+                        <div class="product-image">
+                            <img src="assets/images/tennis_bracelet.webp" alt="Tennis Bracelet">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Classic Tennis Bracelet</h3>
+                            <p class="product-price">£3,800</p>
+                        </div>
+                    </a>
+                    <button class="add-to-bag-btn" style="margin-top:1rem; padding: 0.5rem;">Add to Bag</button>
+                </div>
+                <div class="product-card">
+                    <a href="product.html" style="display:block;">
+                        <div class="product-image">
+                            <img src="assets/images/diamond_earrings.webp" alt="Diamond Stud Earrings">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Diamond Stud Earrings</h3>
+                            <p class="product-price">£1,200</p>
+                        </div>
+                    </a>
+                    <button class="add-to-bag-btn" style="margin-top:1rem; padding: 0.5rem;">Add to Bag</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="maison.html">Maison</a>
+            <a href="#">Legal</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p class="copyright">&copy; 2026 Luxury Lune. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

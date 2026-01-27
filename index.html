@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Lune | Fine Silver Jewellery</title>
+    <meta name="description"
+        content="Discover Luxury Lune's exclusive collection of premium silver and diamond jewellery. Elegance refined.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-left">
+            <a href="collections.html" class="nav-link">Collections</a>
+            <a href="maison.html" class="nav-link">Maison</a>
+        </nav>
+
+        <div class="logo">
+            <a href="index.html">LUXURY LUNE</a>
+        </div>
+
+        <nav class="nav-right">
+            <div class="nav-item-dropdown">
+                <a href="account.html" class="nav-link">Account</a>
+                <div class="dropdown-content">
+                    <a href="account.html?mode=login">Sign In</a>
+                    <a href="account.html?mode=register">Create Account</a>
+                </div>
+            </div>
+            <a href="cart.html" class="nav-link">Bag (0)</a>
+        </nav>
+        </nav>
+
+        <div class="mobile-menu-overlay"></div>
+        <nav class="mobile-nav">
+            <span class="close-mobile-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="collections.html" class="mobile-link">Collections</a>
+            <a href="maison.html" class="mobile-link">Maison</a>
+            <a href="cart.html" class="mobile-link">Bag</a>
+            <a href="account.html" class="mobile-link">Account</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-image-container">
+                <img src="assets/images/hero_banner.webp" alt="Luxury Silver Jewellery" class="hero-img">
+            </div>
+        </section>
+
+        <section class="featured-collection">
+            <div class="collection-header">
+                <h2 class="collection-title">The Diamond Edit</h2>
+                <a href="#" class="discover-link">Discover the Collection</a>
+            </div>
+
+            <div class="product-grid" id="featured-products-grid">
+                <!-- Products injected by script.js -->
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <blockquote class="testimonial-quote">
+                "Luxury Lune has redefined elegance for me. The craftsmanship is simply unparalleled, and the silver
+                glow is truly ethereal."
+            </blockquote>
+            <p class="testimonial-author">- Sarah Jenkins, London</p>
+        </section>
+
+        <section class="about-maison">
+            <div class="about-content">
+                <h2 class="about-title">The Maison</h2>
+                <p class="about-text">
+                    Born from a fascination with the celestial, Luxury Lune crafts silver jewellery that mirrors the
+                    moon's ethereal glow.
+                    Each piece is a testament to timeless elegance, designed for the modern muse who seeks beauty in
+                    simplicity.
+                </p>
+                <a href="#" class="read-more-link">Read Our Story</a>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <h2 class="newsletter-title">Join the Inner Circle</h2>
+            <p class="newsletter-desc">Be the first to know about new collections and exclusive events.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your Email Address" aria-label="Email Address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="maison.html">Maison</a>
+            <a href="#">Legal</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p class="copyright">&copy; 2026 Luxury Lune. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

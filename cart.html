@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bag | Luxury Lune</title>
+    <meta name="description" content="View your shopping bag and proceed to checkout.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-page-header {
+            text-align: center;
+            padding: 4rem 0;
+            background-color: #FAFAFA;
+            margin-bottom: 4rem;
+        }
+
+        .cart-container {
+            max-width: 1000px;
+            margin: 0 auto 6rem;
+            padding: 0 var(--spacing-container);
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 3rem;
+        }
+
+        .cart-table th {
+            text-align: left;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-border);
+            font-family: var(--font-heading);
+            font-weight: 400;
+            color: var(--color-text-light);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        .cart-table td {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .cart-product-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cart-product-thumb {
+            width: 80px;
+            height: 80px;
+            background-color: #FAFAFA;
+            object-fit: contain;
+        }
+
+        .cart-summary {
+            background-color: #FAFAFA;
+            padding: 2rem;
+            max-width: 400px;
+            margin-left: auto;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .summary-total {
+            border-top: 1px solid var(--color-border);
+            padding-top: 1rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            text-decoration: underline;
+            cursor: pointer;
+            color: var(--color-text-light);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .cart-table th {
+                display: none;
+            }
+
+            .cart-table td {
+                display: block;
+                text-align: right;
+            }
+
+            .cart-table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.8rem;
+            }
+
+            .cart-product-info {
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-left">
+            <a href="collections.html" class="nav-link">Collections</a>
+            <a href="maison.html" class="nav-link">Maison</a>
+        </nav>
+
+        <div class="logo">
+            <a href="index.html">LUXURY LUNE</a>
+        </div>
+
+        <nav class="nav-right">
+            <div class="nav-item-dropdown">
+                <a href="account.html" class="nav-link">Account</a>
+                <div class="dropdown-content">
+                    <a href="account.html?mode=login">Sign In</a>
+                    <a href="account.html?mode=register">Create Account</a>
+                </div>
+            </div>
+            <a href="cart.html" class="nav-link">Bag (0)</a>
+        </nav>
+        </nav>
+
+        <div class="mobile-menu-overlay"></div>
+        <nav class="mobile-nav">
+            <span class="close-mobile-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="collections.html" class="mobile-link">Collections</a>
+            <a href="maison.html" class="mobile-link">Maison</a>
+            <a href="cart.html" class="mobile-link">Bag</a>
+            <a href="account.html" class="mobile-link">Account</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="cart-page-header">
+            <h1 class="collection-title">Shopping Bag</h1>
+        </div>
+
+        <div class="cart-container">
+            <!-- Cart Content injected by JS -->
+            <div id="full-cart-content">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th width="40%">Product</th>
+                            <th width="20%">Quantity</th>
+                            <th width="20%">Total</th>
+                            <th width="10%">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cart-page-items">
+                        <!-- Rows -->
+                    </tbody>
+                </table>
+
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal">£0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total</span>
+                        <span class="cart-page-total">£0</span>
+                    </div>
+                    <button class="checkout-btn" style="margin-top: 1.5rem;"
+                        onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                </div>
+            </div>
+
+            <div id="empty-cart-message" style="display:none; text-align: center; padding: 4rem;">
+                <p>Your bag is currently empty.</p>
+                <a href="collections.html" class="discover-link"
+                    style="margin-top: 1rem; display: inline-block;">Continue Shopping</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="maison.html">Maison</a>
+            <a href="#">Legal</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p class="copyright">&copy; 2026 Luxury Lune. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

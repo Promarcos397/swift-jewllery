@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | Luxury Lune</title>
+    <meta name="description" content="Explore our complete collection of fine silver and diamond jewellery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 6rem 0 4rem;
+        }
+
+        .filter-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-light);
+        }
+
+        .filter-nav a.active {
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-text);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-left">
+            <a href="collections.html" class="nav-link">Collections</a>
+            <a href="maison.html" class="nav-link">Maison</a>
+        </nav>
+
+        <div class="logo">
+            <a href="index.html">LUXURY LUNE</a>
+        </div>
+
+        <nav class="nav-right">
+            <div class="nav-item-dropdown">
+                <a href="account.html" class="nav-link">Account</a>
+                <div class="dropdown-content">
+                    <a href="account.html?mode=login">Sign In</a>
+                    <a href="account.html?mode=register">Create Account</a>
+                </div>
+            </div>
+            <a href="cart.html" class="nav-link">Bag (0)</a>
+        </nav>
+        </nav>
+
+        <div class="mobile-menu-overlay"></div>
+        <nav class="mobile-nav">
+            <span class="close-mobile-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="collections.html" class="mobile-link">Collections</a>
+            <a href="maison.html" class="mobile-link">Maison</a>
+            <a href="cart.html" class="mobile-link">Bag</a>
+            <a href="account.html" class="mobile-link">Account</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1 class="collection-title">High Jewellery</h1>
+            <p class="about-text" style="margin-bottom: 0;">Curated for the modern connoisseur.</p>
+        </div>
+
+        <nav class="filter-nav">
+            <a href="#" class="active">All</a>
+            <a href="#">Rings</a>
+            <a href="#">Necklaces</a>
+            <a href="#">Earrings</a>
+            <a href="#">Bracelets</a>
+        </nav>
+
+        <section class="featured-collection">
+            <div class="product-grid" id="all-products-grid">
+                <!-- Products injected by script.js -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="maison.html">Maison</a>
+            <a href="#">Legal</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p class="copyright">&copy; 2026 Luxury Lune. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

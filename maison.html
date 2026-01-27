@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Maison | Luxury Lune</title>
+    <meta name="description" content="The story of Luxury Lune, crafting ethereal silver jewellery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .maison-hero {
+            height: 60vh;
+            background-color: var(--color-silver);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4rem;
+            overflow: hidden;
+        }
+
+        .maison-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .content-block {
+            padding: 4rem var(--spacing-container);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .block-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .block-text {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .value-item h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-left">
+            <a href="collections.html" class="nav-link">Collections</a>
+            <a href="maison.html" class="nav-link">Maison</a>
+        </nav>
+
+        <div class="logo">
+            <a href="index.html">LUXURY LUNE</a>
+        </div>
+
+        <nav class="nav-right">
+            <div class="nav-item-dropdown">
+                <a href="account.html" class="nav-link">Account</a>
+                <div class="dropdown-content">
+                    <a href="account.html?mode=login">Sign In</a>
+                    <a href="account.html?mode=register">Create Account</a>
+                </div>
+            </div>
+            <a href="cart.html" class="nav-link">Bag (0)</a>
+        </nav>
+        </nav>
+
+        <div class="mobile-menu-overlay"></div>
+        <nav class="mobile-nav">
+            <span class="close-mobile-menu">&times;</span>
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="collections.html" class="mobile-link">Collections</a>
+            <a href="maison.html" class="mobile-link">Maison</a>
+            <a href="cart.html" class="mobile-link">Bag</a>
+            <a href="account.html" class="mobile-link">Account</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="maison-hero">
+            <!-- Reusing hero banner for now, ideally would be a different "studio" shot -->
+            <img src="assets/images/hero_banner.webp" alt="Luxury Lune Studio">
+        </div>
+
+        <section class="content-block">
+            <h1 class="block-title">The Moon's Reflection</h1>
+            <p class="block-text">
+                Luxury Lune was founded on a simple premise: that silver, in its purest form, captures the ethereal
+                beauty of moonlight better than any other metal. Use of platinum and rhodium plating ensures our pieces
+                maintain that celestial glow for generations.
+            </p>
+            <p class="block-text">
+                We reject the noise of fast fashion. Our collections are released in limited "Editions," ensuring that
+                every ring, bracelet, and pendant receives the attention it deserves during the creation process.
+            </p>
+
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>Conflict-Free</h3>
+                    <p class="block-text" style="font-size: 0.9rem;">Ethically sourced diamonds and recycled silver.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Handcrafted</h3>
+                    <p class="block-text" style="font-size: 0.9rem;">Finished by master artisans in our London studio.
+                    </p>
+                </div>
+                <div class="value-item">
+                    <h3>Timeless</h3>
+                    <p class="block-text" style="font-size: 0.9rem;">Designs meant to transcend trends.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="maison.html">Maison</a>
+            <a href="#">Legal</a>
+            <a href="#">Instagram</a>
+        </div>
+        <p class="copyright">&copy; 2026 Luxury Lune. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
