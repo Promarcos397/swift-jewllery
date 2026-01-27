@@ -1020,6 +1020,7 @@ a:hover {
     bottom: 50px;
 }
 
+
 /* Secure Badge for Checkout */
 .secure-badge {
     display: flex;
@@ -1037,4 +1038,33 @@ a:hover {
 .secure-badge::before {
     content: '🔒';
     /* Simple lock icon */
+}
+
+/* Checkout Button */
+.checkout-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-text-main);
+    color: white;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+.checkout-btn:hover {
+    background-color: black;
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.error-border {
+    border-color: #ff4444 !important;
 }

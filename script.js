@@ -74,14 +74,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Render Cart Page Items (if active)
         const cartPageContainer = document.querySelector('.cart-page-items');
         const cartPageTotal = document.querySelector('.cart-page-total');
+        const fullCartContent = document.getElementById('full-cart-content');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartSubtotal = document.getElementById('cart-subtotal');
 
         if (cartPageContainer) {
             const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const formattedTotal = `£${totalPrice.toLocaleString()}`;
 
             if (cart.length === 0) {
-                cartPageContainer.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:2rem;">Your bag is empty.</td></tr>';
+                if (fullCartContent) fullCartContent.style.display = 'none';
+                if (emptyCartMessage) emptyCartMessage.style.display = 'block';
             } else {
+                if (fullCartContent) fullCartContent.style.display = 'block';
+                if (emptyCartMessage) emptyCartMessage.style.display = 'none';
+
                 cartPageContainer.innerHTML = cart.map((item) => `
                     <tr>
                         <td class="product-col">
@@ -93,15 +100,24 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </div>
                         </td>
-                        <td>${item.quantity}</td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button class="qty-btn minus" data-id="${item.id}">-</button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn plus" data-id="${item.id}">+</button>
+                            </div>
+                        </td>
                         <td class="total-col">£${(item.price * item.quantity).toLocaleString()}</td>
-                        <td><span class="remove-item" data-id="${item.id}" style="cursor:pointer;">&times;</span></td>
+                        <td><span class="remove-item" data-id="${item.id}" style="cursor:pointer; font-size: 1.2rem;">&times;</span></td>
                     </tr>
                 `).join('');
             }
             // Update the separate total element on cart page if it exists
             if (cartPageTotal) {
                 cartPageTotal.textContent = formattedTotal;
+            }
+            if (cartSubtotal) {
+                cartSubtotal.textContent = formattedTotal;
             }
         }
     }
@@ -226,10 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
             removeFromCart(id);
         }
 
-        // Sidebar - Quantity Controls (Only on Cart Page now - though cart.html handles this maybe?)
-        // If cart.html uses this updateQuantity, we need buttons with .qty-btn class
-        // Current cart.html render does NOT have qty-btn classes, it just shows quantity.
-        // Let's assume cart.html handles removal via .remove-item.
+        // Quantity Controls
+        if (e.target.classList.contains('qty-btn')) {
+            const id = e.target.getAttribute('data-id');
+            if (e.target.classList.contains('plus')) {
+                updateQuantity(id, 1);
+            } else if (e.target.classList.contains('minus')) {
+                updateQuantity(id, -1);
+            }
+        }
     });
 
     // Filter Logic for Collections Page

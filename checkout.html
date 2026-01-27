@@ -11,6 +11,13 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            // IMPORTANT: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS Public Key (e.g., 'user_123abc')
+            emailjs.init("fvwV98-eqKNpXz2oI");
+        })();
+    </script>
     <style>
         .checkout-main {
             padding: 8rem 2rem 4rem;
@@ -301,11 +308,19 @@
             totalEl.textContent = formatted;
 
             placeOrderBtn.addEventListener('click', () => {
-                // strict validation not required for demo, but let's check basic required fields
+                // Remove existing errors
+                document.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
+
                 const inputs = document.querySelectorAll('input[required]');
                 let allFilled = true;
+                let firstEmpty = null;
+
                 inputs.forEach(i => {
-                    if (!i.value) allFilled = false;
+                    if (!i.value.trim()) {
+                        allFilled = false;
+                        i.classList.add('error-border'); // Add visual cue (needs css)
+                        if (!firstEmpty) firstEmpty = i;
+                    }
                 });
 
                 if (cart.length === 0) {
@@ -315,34 +330,141 @@
                 }
 
                 if (!allFilled) {
-                    if (window.showToast) window.showToast('Please fill in all details.');
-                    else alert('Please fill in all details.');
+                    if (window.showToast) window.showToast('Please fill in all required fields.');
+                    else alert('Please fill in all required fields.');
+                    if (firstEmpty) firstEmpty.focus();
                     return;
                 }
 
                 placeOrderBtn.textContent = 'Processing...';
                 placeOrderBtn.disabled = true;
 
-                setTimeout(() => {
-                    // Replace Main Content with Confirmation
-                    const main = document.querySelector('.checkout-main');
-                    main.innerHTML = `
-                        <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem;">
-                            <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 2rem;">Order Confirmed</h2>
-                            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Thank you for your purchase. Your order #LL${Math.floor(Math.random() * 10000) + 1000} has been placed.</p>
-                            <p style="color: #666; margin-bottom: 3rem;">A confirmation email has been sent to your provided address.</p>
-                            <a href="index.html" style="text-decoration: underline; text-transform: uppercase; letter-spacing: 0.1rem; color: #000;">Continue Shopping</a>
-                        </div>
-                    `;
-                    localStorage.removeItem('userCart');
+                // 1. Gather Data
+                const email = document.querySelector('input[type="email"]').value;
+                const firstName = document.querySelectorAll('.checkout-section:nth-of-type(2) input')[0].value;
+                const lastName = document.querySelectorAll('.checkout-section:nth-of-type(2) input')[1].value;
+                const address = document.querySelectorAll('.checkout-section:nth-of-type(2) input')[2].value;
+                const city = document.querySelectorAll('.checkout-section:nth-of-type(2) input')[3].value;
+                const postcode = document.querySelectorAll('.checkout-section:nth-of-type(2) input')[4].value;
+                const country = document.querySelector('select').value;
 
-                    // Update cart count in header
-                    const countEl = document.getElementById('checkout-count');
-                    if (countEl) countEl.textContent = '0';
-                    const navBag = document.querySelector('.nav-right .nav-link:last-child');
-                    if (navBag) navBag.textContent = 'Bag (0)';
-                }, 2000);
+                const fullName = `${firstName} ${lastName}`;
+                const fullAddress = `${address}, ${city}, ${postcode}, ${country}`;
+                const orderId = `LL${Math.floor(Math.random() * 10000) + 1000}`;
+
+                // 2. Generate HTML Order Summary
+                const orderRows = cart.map(item => `
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid #eee;">
+                            <strong>${item.name}</strong>
+                        </td>
+                        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">
+                            ${item.quantity}
+                        </td>
+                        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">
+                            £${(item.price * item.quantity).toLocaleString()}
+                        </td>
+                    </tr>
+                `).join('');
+
+                const orderTotal = document.getElementById('checkout-total').textContent;
+
+                const messageHtml = `
+                    <h2 style="color: #1a1a1a; margin-top: 0; margin-bottom: 20px; font-size: 22px; font-weight: 600;">Order Confirmed</h2>
+                    <p style="color: #555555; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
+                        Dear ${firstName},<br><br>
+                        Thank you for your purchase. We are pleased to confirm your order <strong>#${orderId}</strong>. Your items are being prepared with the utmost care.
+                    </p>
+
+                    <!-- Shipping Info Box -->
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9f9f9; border-radius: 4px; margin-bottom: 30px;">
+                        <tr>
+                            <td style="padding: 20px;">
+                                <h3 style="color: #1a1a1a; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Shipping To</h3>
+                                <p style="color: #555555; margin: 0; font-size: 15px; line-height: 1.5;">
+                                    <strong>${fullName}</strong><br>
+                                    ${fullAddress}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Order Items -->
+                    <h3 style="color: #1a1a1a; margin-top: 0; margin-bottom: 15px; font-size: 18px;">Order Summary</h3>
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th align="left" style="padding-bottom: 10px; border-bottom: 2px solid #eeeeee; color: #888888; font-size: 12px; text-transform: uppercase;">Item</th>
+                                <th align="center" style="padding-bottom: 10px; border-bottom: 2px solid #eeeeee; color: #888888; font-size: 12px; text-transform: uppercase;">Qty</th>
+                                <th align="right" style="padding-bottom: 10px; border-bottom: 2px solid #eeeeee; color: #888888; font-size: 12px; text-transform: uppercase;">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${orderRows}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" align="right" style="padding-top: 15px; font-size: 16px; color: #555555;">Subtotal</td>
+                                <td align="right" style="padding-top: 15px; font-size: 16px; color: #555555;">${orderTotal}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="right" style="padding-top: 5px; font-size: 16px; color: #555555;">Shipping</td>
+                                <td align="right" style="padding-top: 5px; font-size: 16px; color: #555555;">Free</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="right" style="padding-top: 15px; font-size: 20px; font-weight: bold; color: #1a1a1a;">Total</td>
+                                <td align="right" style="padding-top: 15px; font-size: 20px; font-weight: bold; color: #1a1a1a;">${orderTotal}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div style="margin-top: 40px; text-align: center;">
+                        <a href="https://luxurylune.com" style="background-color: #1a1a1a; color: #ffffff; padding: 12px 25px; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px;">Visit Store</a>
+                    </div>
+                `;
+
+                // 3. Send via EmailJS
+                // Service: service_y40oxrt
+                // Template: template_r985599
+                // Params expected by typical template: to_name, to_email, message, order_id, etc.
+
+                const templateParams = {
+                    to_name: fullName,
+                    to_email: email,
+                    order_id: orderId,
+                    message: messageHtml,   // The HTML table we built
+                    shipping_address: fullAddress
+                };
+
+                emailjs.send('service_y40oxrt', 'template_0itksha', templateParams)
+                    .then(function (response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        // Success UI
+                        const main = document.querySelector('.checkout-main');
+                        main.innerHTML = `
+                            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem;">
+                                <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 2rem;">Order Confirmed</h2>
+                                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Thank you for your purchase. Your order <strong>#${orderId}</strong> has been placed.</p>
+                                <p style="color: #666; margin-bottom: 3rem;">A confirmation email has been sent to <strong>${email}</strong>.</p>
+                                <a href="index.html" style="display: inline-block; padding: 1rem 2rem; background: #000; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em;">Continue Shopping</a>
+                            </div>
+                        `;
+                        localStorage.removeItem('userCart');
+                        updateCartCount(); // Helper to clear valid counts
+                    }, function (error) {
+                        console.log('FAILED...', error);
+                        alert('Order failed to send. Please try again or contact support. Error: ' + JSON.stringify(error));
+                        placeOrderBtn.textContent = 'Place Order';
+                        placeOrderBtn.disabled = false;
+                    });
             });
+
+            function updateCartCount() {
+                const countEl = document.getElementById('checkout-count');
+                if (countEl) countEl.textContent = '0';
+                const navBag = document.querySelector('.nav-right .nav-link:last-child');
+                if (navBag) navBag.textContent = 'Bag (0)';
+            }
         });
     </script>
 </body>
