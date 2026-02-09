@@ -14,7 +14,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function () {
-            // IMPORTANT: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS Public Key (e.g., 'user_123abc')
             emailjs.init("fvwV98-eqKNpXz2oI");
         })();
     </script>
@@ -270,7 +269,7 @@
 
     <script src="script.js"></script>
     <script>
-        // Specific logic for checkout page population
+        // checkout page population
         document.addEventListener('DOMContentLoaded', () => {
             const cart = JSON.parse(localStorage.getItem('userCart')) || [];
             const container = document.getElementById('checkout-items');
@@ -308,7 +307,7 @@
             totalEl.textContent = formatted;
 
             placeOrderBtn.addEventListener('click', () => {
-                // Remove existing errors
+                // clear previous errors
                 document.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
 
                 const inputs = document.querySelectorAll('input[required]');
@@ -318,7 +317,7 @@
                 inputs.forEach(i => {
                     if (!i.value.trim()) {
                         allFilled = false;
-                        i.classList.add('error-border'); // Add visual cue (needs css)
+                        i.classList.add('error-border');
                         if (!firstEmpty) firstEmpty = i;
                     }
                 });
@@ -339,7 +338,7 @@
                 placeOrderBtn.textContent = 'Processing...';
                 placeOrderBtn.disabled = true;
 
-                // 1. Gather Data
+                // gather form data
                 const email = document.querySelector('input[type="email"]').value;
                 const firstName = document.querySelectorAll('.checkout-section:nth-of-type(2) input')[0].value;
                 const lastName = document.querySelectorAll('.checkout-section:nth-of-type(2) input')[1].value;
@@ -352,7 +351,7 @@
                 const fullAddress = `${address}, ${city}, ${postcode}, ${country}`;
                 const orderId = `LL${Math.floor(Math.random() * 10000) + 1000}`;
 
-                // 2. Generate HTML Order Summary
+                // build order summary html
                 const orderRows = cart.map(item => `
                     <tr>
                         <td style="padding: 10px; border-bottom: 1px solid #eee;">
@@ -376,7 +375,7 @@
                         Thank you for your purchase. We are pleased to confirm your order <strong>#${orderId}</strong>. Your items are being prepared with the utmost care.
                     </p>
 
-                    <!-- Shipping Info Box -->
+                    <!-- shipping info -->
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9f9f9; border-radius: 4px; margin-bottom: 30px;">
                         <tr>
                             <td style="padding: 20px;">
@@ -389,7 +388,7 @@
                         </tr>
                     </table>
 
-                    <!-- Order Items -->
+                    <!-- order items -->
                     <h3 style="color: #1a1a1a; margin-top: 0; margin-bottom: 15px; font-size: 18px;">Order Summary</h3>
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                         <thead>
@@ -423,23 +422,20 @@
                     </div>
                 `;
 
-                // 3. Send via EmailJS
-                // Service: service_y40oxrt
-                // Template: template_r985599
-                // Params expected by typical template: to_name, to_email, message, order_id, etc.
+                // send confirmation email
 
                 const templateParams = {
                     to_name: fullName,
                     to_email: email,
                     order_id: orderId,
-                    message: messageHtml,   // The HTML table we built
+                    message: messageHtml,
                     shipping_address: fullAddress
                 };
 
                 emailjs.send('service_y40oxrt', 'template_0itksha', templateParams)
                     .then(function (response) {
                         console.log('SUCCESS!', response.status, response.text);
-                        // Success UI
+                        // show confirmation
                         const main = document.querySelector('.checkout-main');
                         main.innerHTML = `
                             <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem;">
@@ -450,7 +446,7 @@
                             </div>
                         `;
                         localStorage.removeItem('userCart');
-                        updateCartCount(); // Helper to clear valid counts
+                        updateCartCount();
                     }, function (error) {
                         console.log('FAILED...', error);
                         alert('Order failed to send. Please try again or contact support. Error: ' + JSON.stringify(error));

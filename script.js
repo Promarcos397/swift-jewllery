@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Product Data (Single Source of Truth) ---
+    // product data
     const products = [
         { id: 1, name: "Solitaire Diamond Ring", price: 2450, image: "assets/images/solitaire_ring.webp", category: "rings" },
         { id: 2, name: "Classic Tennis Bracelet", price: 3800, image: "assets/images/tennis_bracelet.webp", category: "bracelets" },
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 12, name: "Pearl Huggie Hoop", price: 750, image: "assets/images/pearl_huggie.webp", category: "earrings" }
     ];
 
-    // --- Dynamic Rendering Logic ---
+    // rendering logic
 
     function renderProductCard(product) {
         return `
@@ -39,27 +39,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const collectionContainer = document.getElementById('all-products-grid');
 
     if (featuredContainer) {
-        // Render a subset or all for homepage
-        const featuredProducts = products.slice(0, 10); // Show first 10 for now
+        // show first 10 on homepage
+        const featuredProducts = products.slice(0, 10);
         featuredContainer.innerHTML = featuredProducts.map(renderProductCard).join('');
     }
 
     if (collectionContainer) {
-        // Render all for collections
+        // render all for collections page
         collectionContainer.innerHTML = products.map(renderProductCard).join('');
     }
 
-    // --- Cart State & Logic ---
+    // cart state
     let cart = JSON.parse(localStorage.getItem('userCart')) || [];
 
-    // UI Elements
+    // ui elements
     const bagNav = document.querySelector('.nav-right .nav-link:last-child');
     const body = document.body;
 
-    // Initial UI Update
+    // initial update
     updateCartUI();
 
-    // --- Functions ---
+    // functions
 
     function saveCart() {
         localStorage.setItem('userCart', JSON.stringify(cart));
@@ -67,11 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateCartUI() {
-        // 1. Update Bag Count in Nav
+        // update bag count in nav
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         if (bagNav) bagNav.textContent = `Bag (${totalItems})`;
 
-        // 2. Render Cart Page Items (if active)
+        // render cart page items
         const cartPageContainer = document.querySelector('.cart-page-items');
         const cartPageTotal = document.querySelector('.cart-page-total');
         const fullCartContent = document.getElementById('full-cart-content');
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </tr>
                 `).join('');
             }
-            // Update the separate total element on cart page if it exists
+            // update total on cart page
             if (cartPageTotal) {
                 cartPageTotal.textContent = formattedTotal;
             }
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Modal Logic ---
+    // modal logic
     const modalOverlay = document.createElement('div');
     modalOverlay.className = 'modal-overlay';
     modalOverlay.innerHTML = `
@@ -203,10 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
         modalAddBtn.setAttribute('data-id', product.id);
 
         modalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
         modalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
     }
 
     modalClose.addEventListener('click', closeModal);
@@ -214,10 +216,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === modalOverlay) closeModal();
     });
 
-    // --- Global Event Listeners (Delegation) ---
+    // event listeners
 
     body.addEventListener('click', (e) => {
-        // Add to Bag Buttons & Modal Triggers
+        // product card clicks and modal triggers
         if (e.target.closest('.product-card') && !e.target.classList.contains('add-to-bag-btn')) {
             const card = e.target.closest('.product-card');
             const id = card.getAttribute('data-id');
@@ -227,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Add to Bag (Main buttons + Modal button)
+        // add to bag
         if (e.target.classList.contains('add-to-bag-btn') || e.target.classList.contains('modal-add-btn')) {
             const id = e.target.getAttribute('data-id');
             addToCart(id);
@@ -236,13 +238,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Sidebar - Remove Item (Only on Cart Page now)
+        // remove item from cart
         if (e.target.classList.contains('remove-item')) {
             const id = e.target.getAttribute('data-id');
             removeFromCart(id);
         }
 
-        // Quantity Controls
+        // quantity controls
         if (e.target.classList.contains('qty-btn')) {
             const id = e.target.getAttribute('data-id');
             if (e.target.classList.contains('plus')) {
@@ -253,21 +255,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Filter Logic for Collections Page
+    // collection page filtering
     const filterLinks = document.querySelectorAll('.filter-nav a');
     if (filterLinks.length > 0 && collectionContainer) {
         filterLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
 
-                // Active state
+                // active state
                 filterLinks.forEach(l => l.classList.remove('active'));
                 const elem = e.target;
                 elem.classList.add('active');
 
                 const category = elem.textContent.toLowerCase();
 
-                // Filter Products
+                // filter products
                 if (category === 'all') {
                     collectionContainer.innerHTML = products.map(renderProductCard).join('');
                 } else {
@@ -278,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Newsletter Form
+    // newsletter form
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', (e) => {
@@ -291,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Mobile Menu Logic ---
+    // mobile menu
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const mobileNav = document.querySelector('.mobile-nav');
     const mobileOverlay = document.querySelector('.mobile-menu-overlay');
@@ -313,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- Utility: Toast Notification ---
+// toast notification
 window.showToast = function (message) {
     let toast = document.querySelector('.toast');
     if (!toast) {

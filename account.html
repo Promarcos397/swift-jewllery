@@ -152,7 +152,7 @@
                     loginForm.classList.add('active');
                     regForm.classList.remove('active');
 
-                    // Update URL without reloading
+                    // update url without reloading
                     const url = new URL(window.location);
                     url.searchParams.set('mode', 'login');
                     window.history.pushState({}, '', url);
@@ -164,7 +164,7 @@
                     regForm.classList.add('active');
                     loginForm.classList.remove('active');
 
-                    // Update URL without reloading
+                    // update url without reloading
                     const url = new URL(window.location);
                     url.searchParams.set('mode', 'register');
                     window.history.pushState({}, '', url);
@@ -174,14 +174,14 @@
             loginBtn.addEventListener('click', () => switchTab(true));
             regBtn.addEventListener('click', () => switchTab(false));
 
-            // Check URL for mode
+            // check url for mode
             const urlParams = new URLSearchParams(window.location.search);
             const mode = urlParams.get('mode');
             if (mode === 'register') {
-                switchTab(false); // Switch to register automatically
+                switchTab(false);
             }
 
-            // Form Submission Fake Handling
+            // form submission handling
             document.querySelectorAll('form').forEach(form => {
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();

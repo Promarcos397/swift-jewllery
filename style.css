@@ -2,6 +2,7 @@
 :root {
     --color-bg: #FFFFFF;
     --color-text: #1A1A1A;
+    --color-text-main: #1A1A1A;
     --color-text-light: #666666;
     --color-silver: #F5F5F5;
     --color-border: #E0E0E0;
@@ -699,7 +700,8 @@ a:hover {
 .auth-btn {
     width: 100%;
     padding: 1rem;
-    background-color: var(--color-text-main);
+    background-color: #1A1A1A;
+    background-color: var(--color-text-main, #1A1A1A);
     color: white;
     border: none;
     font-family: var(--font-heading);
@@ -863,6 +865,26 @@ a:hover {
     line-height: 1.6;
     color: #555;
     margin-bottom: 2rem;
+}
+
+/* Modal Add to Bag Button */
+.modal-add-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.modal-add-btn:hover {
+    background-color: #000000;
+    transform: translateY(-2px);
 }
 
 /* Responsive Modal */
@@ -1045,7 +1067,8 @@ a:hover {
     display: block;
     width: 100%;
     padding: 1rem;
-    background-color: var(--color-text-main);
+    background-color: #1A1A1A;
+    background-color: var(--color-text-main, #1A1A1A);
     color: white;
     border: none;
     font-family: var(--font-heading);
